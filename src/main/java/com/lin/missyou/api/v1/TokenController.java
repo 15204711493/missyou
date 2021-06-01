@@ -19,7 +19,6 @@ public class TokenController {
 
     @PostMapping("")
     public Map<String,String> getToken(@RequestBody @Validated TokenGetDTO userData){
-        System.out.println(userData.getType());
         Map<String,String>  map = new HashMap<>();
         String token = null;
         switch (userData.getType()){
@@ -30,9 +29,9 @@ public class TokenController {
                 break;
             default:
                 throw new NotFoundEcxeption(10003);
-
         }
 
-        return null;
+        map.put("token",token);
+        return map;
     }
 }

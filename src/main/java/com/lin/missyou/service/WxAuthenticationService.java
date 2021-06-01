@@ -41,6 +41,7 @@ public class WxAuthenticationService {
         Map<String, Object> session = new HashMap<>();
         try {
              session = mapper.readValue(sessionText, Map.class);
+            System.out.println(session);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

@@ -3,12 +3,14 @@ package com.lin.missyou.until;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class JwtToken {
 
     private static String jwtKey;
@@ -20,7 +22,7 @@ public class JwtToken {
         JwtToken.jwtKey = jwtKey;
     }
 
-    @Value("${missyou.security.jwt-key.token-expired-in}")
+    @Value("${missyou.security.token-expired-in}")
     public void setExpiredTimeIn(Integer expiredTimeIn) {
         JwtToken.expiredTimeIn = expiredTimeIn;
     }
