@@ -7,9 +7,6 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 @Configuration
 public class AutoPrefixConfiguration implements WebMvcRegistrations {
-
-
-
     @Override
     public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
         return new AutoPrefixUrlMapping();
