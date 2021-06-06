@@ -7,6 +7,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,5 +23,12 @@ public class Category extends BaseEntity {
     private Long parentId;
     private String img;
     private Long index;
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "coupon_category",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "coupon_id"))
+    private List<Coupon> couponList;
 
 }
