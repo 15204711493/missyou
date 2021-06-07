@@ -19,4 +19,18 @@ public class CouponService {
         Date now = new Date();
         return couponRepository.findByCategory(cid,now);
     }
+
+
+    public List<Coupon> getWholeStoreCoupons(){
+       return couponRepository.findByWholeStore(true,new Date());
+    }
+
+
+
+    public void collectOneCoupon(Long uid,Long couponId){
+
+
+    }
+
+
 }

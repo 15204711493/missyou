@@ -29,7 +29,6 @@ public class ActivityController {
     }
 
 
-
     @GetMapping("/name/{name}/with_coupon")
     public ActivityCouponVo getActivityWithCoupons(@PathVariable String name){
         Activity activity = activityService.getActivity(name);
