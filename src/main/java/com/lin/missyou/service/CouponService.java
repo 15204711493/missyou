@@ -63,9 +63,11 @@ public class CouponService {
                 .createTime(new Date())
                 .build();
         userCouponRepository.save(userCoupon);
-
-
     }
 
+
+    public List<Coupon> getCouponStatus(Long uid,Integer status){
+       userCouponRepository.findByUserIdAndStatus(uid, status);
+    }
 
 }
