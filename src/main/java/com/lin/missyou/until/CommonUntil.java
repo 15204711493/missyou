@@ -2,6 +2,8 @@ package com.lin.missyou.until;
 
 import com.lin.missyou.bo.PageCounter;
 
+import java.util.Date;
+
 public class CommonUntil {
 
      public static PageCounter convertToPageParameter(Integer start, Integer count){
@@ -12,5 +14,12 @@ public class CommonUntil {
                  .build();
          return pageCounter;
 
+     }
+
+     public  static Boolean isInTimeLine(Date date, Date start,Date end){
+         if(date.getTime()>start.getTime() && date.getTime()<end.getTime()){
+             return true;
+         }
+         return false;
      }
 }

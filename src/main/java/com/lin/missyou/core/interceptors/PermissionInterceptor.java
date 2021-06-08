@@ -6,6 +6,7 @@ import com.lin.missyou.exception.http.ForbiddenException;
 import com.lin.missyou.exception.http.UnAuthorizationException;
 import com.lin.missyou.model.User;
 import com.lin.missyou.repository.UserRepository;
+import com.lin.missyou.service.UserService;
 import com.lin.missyou.until.JwtToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -21,9 +22,10 @@ import java.util.Optional;
 public class PermissionInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     public PermissionInterceptor() {
+        super();
     }
 
     @Override
@@ -58,7 +60,7 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
     private void setToThreadLocal(Map<String,Claim> map){
         Long uid = map.get("uid").asLong();
         Integer scope = map.get("scope").asInt();
-        User user = userRepository.findFirstById(uid);
+        User user = userService.findById(uid);
         LocalUser.set(user,scope);
 
     }

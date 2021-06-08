@@ -1,5 +1,7 @@
 package com.lin.missyou.core;
 
+import com.lin.missyou.exception.CreateSuccess;
+
 public class UnifyResponse {
     private Integer code;
     private String message;
@@ -36,4 +38,7 @@ public class UnifyResponse {
     }
 
 
+    public static void createSuccess(Integer code){
+        throw new CreateSuccess(code);
+    }
 }
