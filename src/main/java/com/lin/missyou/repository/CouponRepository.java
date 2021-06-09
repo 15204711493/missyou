@@ -65,4 +65,6 @@ public interface CouponRepository extends JpaRepository<Coupon,Long> {
             "and uc.orderId is  null ")
     List<Coupon> findMyMyExpired(Long uid,Date now);
 
+
+
 }
