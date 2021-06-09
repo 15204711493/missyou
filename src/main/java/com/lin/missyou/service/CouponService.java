@@ -66,8 +66,26 @@ public class CouponService {
     }
 
 
-    public List<Coupon> getCouponStatus(Long uid,Integer status){
-       userCouponRepository.findByUserIdAndStatus(uid, status);
+
+
+
+    public List<Coupon> getMyAvailableCoupons(Long uid){
+        return couponRepository.findMyAvailable(uid,new Date());
+
     }
+
+
+    public List<Coupon> getMyUsedCoupons(Long uid){
+        return couponRepository.findMyUsed(uid,new Date());
+
+    }
+
+    public List<Coupon> getMyExpiredCoupons(Long uid){
+        return couponRepository.findMyMyExpired(uid,new Date());
+
+    }
+
+
+
 
 }

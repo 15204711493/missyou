@@ -28,4 +28,41 @@ public interface CouponRepository extends JpaRepository<Coupon,Long> {
 
 
 
+//    @Query("select c from Coupon c " +
+//            "join UserCoupon uc on c.id = uc.couponId " +
+//            "where uc.userId = :uid " +
+//            "and uc.status = 1 " +
+//            "and c.startTime<:now " +
+//            "and c.endTime>:now " +
+//            "and uc.orderId is null ")
+    @Query("select c from Coupon c " +
+            "join UserCoupon uc on uc.couponId = c.id " +
+            "join User u on u.id = uc.userId " +
+            "where u.id = :uid " +
+            "and uc.status = 1 " +
+            "and c.startTime<:now " +
+            "and c.endTime>:now " +
+            "and uc.orderId is null ")
+    List<Coupon> findMyAvailable(Long uid,Date now);
+
+    @Query("select c from  Coupon c " +
+            "join UserCoupon uc on uc.couponId = c.id " +
+            "join User u on u.id = uc.userId " +
+            "where u.id = :uid " +
+            "and uc.status = 2 " +
+            "and c.endTime>:now " +
+            "and c.startTime<:now " +
+            "and uc.orderId is not null ")
+    List<Coupon> findMyUsed(Long uid,Date now);
+
+
+    @Query("select c from  Coupon c " +
+            "join UserCoupon uc on uc.couponId = c.id " +
+            "join User u on u.id = uc.userId " +
+            "where u.id = :uid " +
+            "and uc.status <> 2 " +
+            "and c.endTime <:now " +
+            "and uc.orderId is  null ")
+    List<Coupon> findMyMyExpired(Long uid,Date now);
+
 }

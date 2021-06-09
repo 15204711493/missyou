@@ -12,9 +12,6 @@ public interface UserCouponRepository extends JpaRepository<UserCoupon,Long> {
 
     Optional<UserCoupon> findFirstByUserIdAndAndCouponId(Long uid,Long couponId);
 
-    @Query("select c from Coupon c " +
-            "join UserCoupon  uc on uc.userId = :uid " +
-            "where uc.status = :status")
-    List<UserCoupon> findByUserIdAndStatus(Long uid,Integer status);
+
 
 }
