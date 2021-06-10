@@ -1,5 +1,6 @@
 package com.lin.missyou.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.lin.missyou.model.BaseEntity.BaseEntity;
 import com.lin.missyou.until.GenericAndJson;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -55,5 +57,13 @@ public class Sku extends BaseEntity {
 
     public BigDecimal getActualPrice(){
         return discountPrice ==null ? this.price :this.discountPrice;
+    }
+
+
+    @JsonIgnore
+    public List<String> getSpecValueList(){
+        return this.getSpecs().stream()
+                .map(Spec::getValue)
+                .collect(Collectors.toList());
     }
 }

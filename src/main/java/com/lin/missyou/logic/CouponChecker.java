@@ -28,8 +28,6 @@ public class CouponChecker {
         this.coupon = coupon;
         this.iMoneyDiscount = iMoneyDiscount;
 
-
-
     }
 
     public void isOk() {
