@@ -54,10 +54,8 @@ public class OrderService {
             UserCoupon userCoupon = userCouponRepository.findFirstByUserIdAndAndCouponId(uid, couponId)
                     .orElseThrow(() -> new NotFoundEcxeption(50006));
 
-            couponChecker = new CouponChecker(coupon,userCoupon,iMoneyDiscount);
+            couponChecker = new CouponChecker(coupon,iMoneyDiscount);
 
         }
-
-
     }
 }
