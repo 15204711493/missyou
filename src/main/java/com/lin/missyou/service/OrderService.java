@@ -1,5 +1,6 @@
 package com.lin.missyou.service;
 
+import com.lin.missyou.core.enumeration.OrderStatus;
 import com.lin.missyou.core.money.IMoneyDiscount;
 import com.lin.missyou.dto.OrderDTO;
 import com.lin.missyou.dto.SkuInfoDTO;
@@ -7,12 +8,11 @@ import com.lin.missyou.exception.http.NotFoundEcxeption;
 import com.lin.missyou.exception.http.ParameterException;
 import com.lin.missyou.logic.CouponChecker;
 import com.lin.missyou.logic.OrderChecker;
-import com.lin.missyou.model.Coupon;
-import com.lin.missyou.model.Order;
-import com.lin.missyou.model.Sku;
-import com.lin.missyou.model.UserCoupon;
+import com.lin.missyou.model.*;
 import com.lin.missyou.repository.CouponRepository;
+import com.lin.missyou.repository.OrderRepository;
 import com.lin.missyou.repository.UserCouponRepository;
+import com.lin.missyou.until.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -36,6 +36,9 @@ public class OrderService {
     private UserCouponRepository userCouponRepository;
 
     @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
     private IMoneyDiscount iMoneyDiscount;
 
     @Value("${missyou.order.max-sku-limit}")
@@ -45,13 +48,33 @@ public class OrderService {
     private Integer payTimeLimit;
 
 
-    public void placeOrder(Long uid,OrderDTO orderDTO,CouponChecker couponChecker){
-        Order.builder()
-                .orderNo()
+    public Long placeOrder(Long uid, OrderDTO orderDTO, OrderChecker orderChecker) {
+        String orderNo = OrderUtil.makeOrderNo();
+        Order order = Order.builder()
+                .orderNo(orderNo)
+                .totalPrice(orderDTO.getTotalPrice())
+                .finalTotalPrice(orderDTO.getFinalTotalPrice())
+                .userId(uid)
+                .totalCount(orderChecker.getTotalCount().longValue())
+                .snapImg(orderChecker.getLeaderImg())
+                .snapTitle(orderChecker.getLeaderTitle())
+                .status(OrderStatus.UNPAID.value())
+                .build();
+        order.setSnapAddress(order.getSnapAddress());
+        order.setSnapItems(orderChecker.getOrderSkuList());
 
-
-
+        orderRepository.save(order);
+        return order.getId();
     }
+
+    private void reduceStock(OrderChecker orderChecker) {
+        List<OrderSku> orderSkuList = orderChecker.getOrderSkuList();
+        for (OrderSku orderSku : orderSkuList) {
+            orderSku.getCount();
+
+        }
+    }
+
 
     public OrderChecker isOk(Long uid, OrderDTO orderDTO) {
         if (orderDTO.getFinalTotalPrice().compareTo(new BigDecimal("0")) <= 0) {
@@ -75,7 +98,7 @@ public class OrderService {
             UserCoupon userCoupon = userCouponRepository.findFirstByUserIdAndAndCouponId(uid, couponId)
                     .orElseThrow(() -> new NotFoundEcxeption(50006));
 
-            couponChecker = new CouponChecker(coupon,iMoneyDiscount);
+            couponChecker = new CouponChecker(coupon, iMoneyDiscount);
         }
 
         OrderChecker orderChecker = new OrderChecker(

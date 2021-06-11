@@ -12,10 +12,13 @@ spring:
 
 missyou:
   api-package: com.lin.missyou.api
+  year-codes: A,B,C,E,F,G,H,I,G,K,L
 
 
 wx:
   appid: wx8adae5e5de01d28b
   appsecret: 3fa21f831c0f11bb73cbaf09f81cf649
   code2session: https://api.weixin.qq.com/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type=authorization_code
+
+
 
