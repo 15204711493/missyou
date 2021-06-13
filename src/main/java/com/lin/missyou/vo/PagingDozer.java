@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PagingDozer<T,K> extends Paging {
+
     public PagingDozer(Page<T> pageT,Class<K> kClass){
         this.initPageParameters(pageT);
         List<T> tList = pageT.getContent();

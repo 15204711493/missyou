@@ -2,6 +2,7 @@ package com.lin.missyou.model;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.lin.missyou.dto.OrderAddressDTO;
+import com.lin.missyou.model.BaseEntity.BaseEntity;
 import com.lin.missyou.until.GenericAndJson;
 import lombok.*;
 import org.hibernate.annotations.Where;
@@ -19,9 +20,9 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Where(clause = "delete_create is null")
+@Where(clause = "delete_time is null")
 @Table(name = "`Order`")
-public class Order {
+public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

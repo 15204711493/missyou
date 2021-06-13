@@ -2,6 +2,7 @@ package com.lin.missyou.until;
 
 import com.lin.missyou.bo.PageCounter;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class CommonUntil {
@@ -21,5 +22,10 @@ public class CommonUntil {
              return true;
          }
          return false;
+     }
+
+     public static Calendar addSomeSeconds(Calendar calendar,int seconds){
+         calendar.add(Calendar.SECOND,seconds);
+         return calendar;
      }
 }

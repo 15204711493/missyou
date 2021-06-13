@@ -61,7 +61,7 @@ public class OrderChecker {
             this.beyondSkuStock(sku, skuInfoDTO);
             this.beyondMxSkuLimit(skuInfoDTO);
 
-            serveTotalPrice.add(this.calculateSkuOrderPrice(sku, skuInfoDTO));
+            serveTotalPrice = serveTotalPrice.add(this.calculateSkuOrderPrice(sku, skuInfoDTO));
             skuOrderBOList.add(new SkuOrderBO(sku, skuInfoDTO));
             this.orderSkuList.add(new OrderSku(skuInfoDTO,sku));
         }
