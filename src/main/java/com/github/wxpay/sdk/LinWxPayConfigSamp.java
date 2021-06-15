@@ -3,21 +3,21 @@ package com.github.wxpay.sdk;
 import java.io.InputStream;
 
 public class LinWxPayConfigSamp extends WXPayConfig {
+
     @Override
-    String getAppID() {
+    public String getAppID() {
         return "wx8adae5e5de01d28b";
     }
 
     @Override
-    String getMchID() {
-        return "";
+    public String getMchID() {
+        return "ssss";
     }
 
     @Override
-    String getKey() {
-        return "";
+    public String getKey() {
+        return "ssssss";
     }
-
 
     @Override
     InputStream getCertStream() {
@@ -26,7 +26,18 @@ public class LinWxPayConfigSamp extends WXPayConfig {
 
     @Override
     IWXPayDomain getWXPayDomain() {
-        return null;
+        IWXPayDomain iwxPayDomain = new IWXPayDomain() {
+            @Override
+            public void report(String domain, long elapsedTimeMillis, Exception ex) {
+
+            }
+
+            @Override
+            public DomainInfo getDomain(WXPayConfig config) {
+                return new IWXPayDomain.DomainInfo(WXPayConstants.DOMAIN_API, true);
+            }
+        };
+        return iwxPayDomain;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.lin.missyou.service;
 
 import com.lin.missyou.core.LocalUser;
 import com.lin.missyou.core.enumeration.OrderStatus;
+import com.lin.missyou.core.interceptors.ScopeLevel;
 import com.lin.missyou.core.money.IMoneyDiscount;
 import com.lin.missyou.dto.OrderDTO;
 import com.lin.missyou.dto.SkuInfoDTO;
@@ -167,4 +168,17 @@ public class OrderService {
         orderChecker.isOk();
         return orderChecker;
     }
+
+
+    public void updateOrderPrepayId(Long orderId, String prePayId){
+        Optional<Order> order = orderRepository.findById(orderId);
+        order.ifPresent(o->{
+            o.setPrepayId(prePayId);
+            this.orderRepository.save(o);
+        });
+        order.orElseThrow(()->new ParameterException(10007));
+    }
+
+
+
 }
