@@ -1,8 +1,11 @@
 package com.lin.missyou.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.lin.missyou.core.enumeration.OrderStatus;
 import com.lin.missyou.dto.OrderAddressDTO;
 import com.lin.missyou.model.BaseEntity.BaseEntity;
+import com.lin.missyou.until.CommonUntil;
 import com.lin.missyou.until.GenericAndJson;
 import lombok.*;
 import org.hibernate.annotations.Where;
@@ -42,6 +45,25 @@ public class Order extends BaseEntity {
     private String prepayId;
     private BigDecimal finalTotalPrice;
     private Integer status;
+
+
+    @JsonIgnore
+    public OrderStatus getStatusEnum(){
+        return OrderStatus.toType(this.status);
+    }
+
+    public Boolean needCancel(){
+        if(!this.getStatusEnum().equals(OrderStatus.UNPAID)){
+            return  true;
+        }
+        Boolean outDate = CommonUntil.isOutDate(this.getExpiredTime());
+        if(outDate){
+            return true;
+        }
+        return false;
+    }
+
+
 
     public void setSnapItems(List<OrderSku> orderSkuList){
         if(orderSkuList.isEmpty()){

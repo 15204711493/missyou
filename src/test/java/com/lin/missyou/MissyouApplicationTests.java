@@ -12,7 +12,7 @@ class MissyouApplicationTests {
     void contextLoads() {
         Calendar now = Calendar.getInstance();
 
-        System.out.println(now.getTime());
+        System.out.println(now);
     }
 
 }

@@ -85,7 +85,6 @@ public class OrderController {
         Optional<Order> order = this.orderService.getOrder(id);
         return order.map((o)->new OrderPureVo(o,this.pagTimeLimit))
                 .orElseThrow(OrderController::get);
-
     }
 
 }
