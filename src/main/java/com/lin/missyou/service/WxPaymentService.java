@@ -43,9 +43,9 @@ public class WxPaymentService {
     public Map<String, String> preOrder(Long id) {
         Long uid = LocalUser.getUser().getId();
         Optional<Order> optionalOrder = orderRepository.findFirstByUserIdAndId(uid, id);
-        Order order = optionalOrder.orElseThrow(() -> {
-            throw new NotFoundEcxeption(50009);
-        });
+        Order order = optionalOrder.orElseThrow(
+                () -> new NotFoundEcxeption(50009)
+        );
         if (order.needCancel()) {
             throw new ForbiddenException(50010);
         }
