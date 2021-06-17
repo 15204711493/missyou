@@ -34,13 +34,13 @@ public class CouponBackService {
 
         Optional<Order> orderOptional =
                 orderRepository.findFirstByUserIdAndId(userId, orderId);
-        Order order = orderOptional.orElseThrow(() -> {
-            throw new ServiereErrorException(9999);
-        });
+        Order order = orderOptional.orElseThrow(() ->
+                new ServiereErrorException(9999)
+        );
 
         if (order.getStatusEnum().equals(OrderStatus.UNPAID)
                 || order.getStatusEnum().equals(OrderStatus.CANCELED)) {
-           this.userCouponRepository.returnBack(userId, couponId);
+            this.userCouponRepository.returnBack(userId, couponId);
 
         }
 

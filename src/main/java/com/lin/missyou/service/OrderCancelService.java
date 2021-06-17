@@ -31,9 +31,9 @@ public class OrderCancelService {
     public void cancel(Long oid){
 
         Optional<Order> orderOptional = orderRepository.findById(oid);
-        Order order = orderOptional.orElseThrow(() -> {
-            throw new ServiereErrorException(9999);
-        });
+        Order order = orderOptional.orElseThrow(() ->
+             new ServiereErrorException(9999)
+        );
 
         int res = orderRepository.cancelOrder(oid);
         if(res != 1){
