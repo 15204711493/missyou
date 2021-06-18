@@ -21,7 +21,6 @@ public class BannerController {
         if(banner == null){
             throw new NotFoundEcxeption(30005);
         }
-
         return banner;
     }
 

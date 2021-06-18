@@ -1,6 +1,8 @@
 package com.lin.missyou;
 
+import com.lin.missyou.manager.rocketmq.ProducerSchedule;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Calendar;
@@ -8,11 +10,13 @@ import java.util.Calendar;
 @SpringBootTest
 class MissyouApplicationTests {
 
-    @Test
-    void contextLoads() {
-        Calendar now = Calendar.getInstance();
+    @Autowired
+    private ProducerSchedule producerSchedule;
 
-        System.out.println(now);
+
+     @Test
+     void pushMessageToMQ() throws Exception {
+        producerSchedule.send("TopicTest", "test");
     }
 
 }
