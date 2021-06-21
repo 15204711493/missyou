@@ -15,7 +15,7 @@ public class BannerController {
     private BannerService bannerService;
 
     @GetMapping("/name/{name}")
-    @ScopeLevel
+    //@ScopeLevel
     public Banner getByName(@PathVariable String name){
         Banner banner = bannerService.getByName(name);
         if(banner == null){

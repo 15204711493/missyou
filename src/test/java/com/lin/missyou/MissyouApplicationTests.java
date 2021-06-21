@@ -10,13 +10,6 @@ import java.util.Calendar;
 @SpringBootTest
 class MissyouApplicationTests {
 
-    @Autowired
-    private ProducerSchedule producerSchedule;
 
-
-     @Test
-     void pushMessageToMQ() throws Exception {
-        producerSchedule.send("TopicTest", "test");
-    }
 
 }

@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("test")
 public class testController {
-    @Autowired
-    private ProducerSchedule producerSchedule;
-
-    @GetMapping("/ok")
-    public void s() throws Exception{
-        producerSchedule.send("TopicTest","test");
-    }
+//    @Autowired
+//    private ProducerSchedule producerSchedule;
+//
+//    @GetMapping("/ok")
+//    public void s() throws Exception{
+//        producerSchedule.send("TopicTest","test");
+//    }
 }
